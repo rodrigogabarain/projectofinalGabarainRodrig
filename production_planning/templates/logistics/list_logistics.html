@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Estado de despachos
+{% endblock %}
+
+{% block content %}
+
+    <h1>Listado de estado de despachos</h1>
+    {% if request.user.is_authenticated %}
+        {% if perms.logistics %}
+            <h2>Carga de Logistica </h2> <a href="/logistics/create-logistic" class="btn btn-primary">Cargar estado</a>
+        {% endif %}
+    {% endif %}
+    
+        
+    <div class="card-deck" >
+        
+        {% for logistic in object_list %}
+        <div class="card">
+            {% if logistic.form_of_dispatch == 'micro' %}
+            <img src="https://www.todoriesgo.com.ar/wp-content/uploads/2019/05/rapido.jpg" class="card-img-top" width="200px" height="200px">
+            {% else %}
+                {% if logistic.form_of_dispatch == 'consolidado' %}
+                <img src="http://satyl.com.ar/arg/wp-content/uploads/2017/08/camiones-carga.jpg" class="card-img-top" width="200px" height="200px">
+                {% else %}
+                <img src="https://w7.pngwing.com/pngs/774/7/png-transparent-black-person-carrying-box-illustration-computer-icons-pickup-truck-car-pickup-truck-text-service-retail.png" class="card-img-top" width="200px" height="200px">
+                {% endif %} 
+            {% endif %}
+            
+            <div class="card-body">
+                <h3 style="color: blue;" class="card-text">N° Orden de Produccion :{{logistic.n_po}}</h3>
+                <h5 class="card-title">Fecha de despacho: {{logistic.dispatch_date}}</h5>
+                <p class="card-text"> COH : {{logistic.coh}}</p>
+                <p class="card-text"> DOH : {{logistic.doh}}</p>
+                <p class="card-text"> Cliente : {{logistic.client}}</p>
+                <p class="card-text"> Direccion : {{logistic.address}}</p>
+                <p class="card-text"> Forma de despacho : {{logistic.form_of_dispatch}}</p>
+                {% if logistic.dispatch == True %}
+                    <p>Se despacho</p>
+                {% else %}
+                    <p>Falta despachar</p>
+                {% endif %}
+                <p class="card-text"> N° Item : {{logistic.item}}</p>
+                <p class="card-text"> Material prima utilizada : {{logistic.used_raw_material}}</p>
+                {% if logistic.used_raw_material1 == True %}
+                    <p>MP descargada</p>
+                {% else %}
+                    <p>MP a descargar</p>
+                {% endif %}
+                <p class="card-text"> Producto terminado utilizado : {{logistic.used_finished_product}}</p>
+                {% if logistic.used_finished_product1 == True %}
+                    <p>PT descargado</p>
+                {% else %}
+                    <p>PT a descargar</p>
+                {% endif %}  
+                <p class="card-text"> Observaciones : {{logistic.observations}}</p>
+                <p class="card-text"> Firma : {{logistic.firm}}</p>
+                
+
+                
+                {% if perms.logistics %}
+                <a href="/logistics/update-logistic/{{logistic.id}}/" class ="btn btn-primary"  style="background-color: rgb(21, 255, 0)" >Acutualizar </a>
+                {% endif %}
+            </div>  
+            
+        </div>
+        {% endfor %}
+        
+    </div>
+
+
+            
+
+{% endblock %}

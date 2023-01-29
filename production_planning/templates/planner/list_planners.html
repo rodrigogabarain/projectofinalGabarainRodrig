@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Listado de OPs
+{% endblock %}
+
+{% block content %}
+
+    <h1>Listado de Planificacion</h1>
+    {% if request.user.is_authenticated %}
+        {% if perms.planner %} 
+        <h2>Carga de Panificadores </h2> <a href="/planner/create-planner" class="btn btn-primary">Cargar</a>
+        {% endif %}
+    {% endif %}    
+    
+    <div class="card-group" >
+        
+            {% for planner in object_list %}
+            
+            
+            <div class="card" >
+                <h3 style="color: blue;" class="card-text">N° Orden de Produccion :{{planner.n_po}}</h3>
+            
+                <h5 class="card-title">Fecha de ingreso: {{planner.admission_date}}</h5>
+                <p class="card-text"> Cliente : {{planner.client}}</p>
+                <p class="card-text"> COH : {{planner.coh}}</p>
+                <p class="card-text"> DOH : {{planner.doh}}</p>
+                <p class="card-text"> Fecha requerida : {{planner.date_required}}</p>
+                <p class="card-text"> Forma de despacho : {{planner.dispatch}}</p>
+                <p class="card-text"> N° Item : {{planner.item}}</p>
+                <p class="card-text"> Materia Prima : {{planner.raw_material}}</p>
+                {% if planner.raw_material1 == True %}
+                    <p>Hay MP</p>
+                {% else %}
+                    <p>Ver disponibilidad</p>
+                {% endif %}
+                <p class="card-text"> Producto terminado : {{planner.finished_product}}</p>
+                {% if planner.finished_product1 == True %}
+                    <p>Hay PT</p>
+                {% else %}
+                    <p>Ver disponibilidad</p>
+                {% endif %}
+                
+            
+                
+            
+
+                {% if perms.planner %}
+                <a href="/planner/update-planner/{{planner.id}}/" class ="btn btn-primary" style="background-color: rgb(21, 255, 0)" >Acutualizar </a>
+                <a href="/planner/delete-planner/{{planner.id}}/" class ="btn btn-primary" style="background-color: red;">Eliminar</a>
+                {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+           
+    </div>
+
+{% endblock %}

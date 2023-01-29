@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Confirmacion de borrado
+{% endblock %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        {% if perms.planner %}  
+            <h2>Orden a borrar {{object.name}}</h2>
+            <p>Seguro que desea eliminarlo?</p>
+    
+    
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Borrar">
+            </form>
+        {% endif %}
+    {% endif %}    
+
+
+{% endblock %}
+

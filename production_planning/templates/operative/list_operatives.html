@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Estado de orden
+{% endblock %}
+
+{% block content %}
+
+    <h1>Listado de estado de ordenes en produccion</h1>
+    {% if request.user.is_authenticated %}
+        {% if perms.operative %} 
+            <h2>Carga de Operadores </h2> <a href="/operative/create-operative" class="btn btn-primary">Cargar estado</a>
+        {% endif %}
+    {% endif %}
+    
+        
+
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">OP</th>
+                    <th scope="col">Inicio Produccion</th>
+                    <th scope="col">Items</th>
+                    <th scope="col">MP Utilizada</th>
+                    <th scope="col">Descarga MP </th>
+                    <th scope="col">PT Utilizada</th>
+                    <th scope="col">Descarga PT </th>
+                    <th scope="col">Observaciones </th>
+                    <th scope="col">Firma</th>
+                </tr>
+            </thead>
+            {% for operative in object_list %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{operative.n_po}}</th>
+                        <td>{{operative.manufacturing_date}}</td>
+                        <td>{{operative.item}}</td>
+                        <td>{{operative.used_raw_material}}</td>
+                        <td>{{operative.unloading_raw_material}}</td>
+                        <td>{{operative.used_finished_product}}</td>
+                        <td>{{operative.unloading_finished_product}}</td>
+                        <td>{{operative.observations}}</td>
+                        <td>{{operative.firm}}</td>
+                    </tr>
+
+                </tbody>
+                {% endfor %}
+        </table>
+
+
+    
+
+{% endblock %}
