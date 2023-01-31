@@ -1,4 +1,4 @@
-# projectofinalGabarainRodrig
+# projectfinalGabarainRodrig
 
 Soy Rodrigo Gabarain, tecnico mecanico de 39años; Utilices esta oportunidad de realizar este trabajo para hacer un programa que podria facilitar las tareas en mi trabajo diario.
 
